@@ -1,0 +1,84 @@
+# MATRIX_ADD_ON_RECURSIVE_TETRATION
+
+Abel_M.gp a program for Pari-gp
+
+======================================================================
+Coded by James David Nixon circa August 2021, except stating otherwise.
+======================================================================
+
+This is a rough code of the beta method of tetration (real valued super exponential of e^x) which is proposed to be a different tetration than Kneser.
+This work is a continuation of the paper The Limits Of A Family; Of Asymptotic Solutions To The Tetration Function.
+Much of this code was written hastily, and to provide enough evidence that the beta method is not the Kneser method.
+As to this, there are still errors in this calculator.
+
+Included in this program are 12 functions on call, and one initialization file INIT.dat.
+
+
+Phi_Inv(w,l,{n=100}) -- is a function which converts the approximate abel equation into an approximate schroder equation. 
+This conversion is largely due to Sheldon Levenstein--but is apparent once seen. This allows us to grab taylor series. 
+If you already have INIT.dat, there's no need for this function; except as a curiousity.
+In its domain of holomorphy: Phi_Inv(exp(-l)*w,l) = w*exp(Phi_Inv(w,l))/(w+1) upto 100 digits/100 series precision.
+
+beta_init(n) -- is a protocol to recreate INIT.dat. Increase or decrease n to increase or decrease the depth of the recursion.
+INIT.dat was compiled with n=100
+
+beta(z,y,{v=0}) -- this is the beta function with multiplier y. Please see my paper to know what that means. 
+In its domain of holomorphy: beta(z+1,y) = exp(beta(z,y))/(exp(-z*y)+1) upto 100 digits/100 series precision.
+v flags the variable you are grabbing taylor series of.
+
+rho(z,y,{v=0},{count=15}) -- this is a nested error which corrects beta to create tetration with multiplier y.
+v flags the variable you are grabbing taylor series of. count determines the maximum amount of iterations.
+
+Abel(z,y,{v=0}) -- This is the unnormalized tetration with multiplier y.
+In its domain of holomorphy: Abel(z+1,y) = exp(Abel(z,y)) upto 100 digits/100 series precision.
+v flags the variable you are grabbing taylor series of.
+
+beta_warped(z,{v=0}) -- This is the implicit approximate solution to the beta method. This gives tetration up to a small error.
+v flags the variable you are grabbing taylor series of.
+
+tau_warped(z,{v=0},{count=8}) -- This is a depreciated function. But it produces the linear error between the beta function and the beta tetration.
+v flags the variable you are grabbing taylor series of. count determines the maximum amount of iterations.
+
+rho_warped(z,{v=0},{count=30}) -- This is the best recursive protocol I could create. It produces a nested error between the beta function and the beta tetration.
+v flags the variable you are grabbing taylor series of. count determines the maximum amount of iterations.
+
+Sexp_NOT_NORMALIZED(z,{v=0},{count=30}) -- The final function minus normalization.
+
+Sexp(z,{v=0}, {count=30}) -- The final function. This produces tetration about e well enough. There are still some errors and anomalies; but it can be explained by pari.
+The errors aren't mathematical errors, as they are insufficiently coded errors. But dealing with tetration, one has to work around overflow errors.
+As to this, the beta method isn't perfectly reflected by this function, but it's good enough for argumentative purposes; ignoring the shortfalls of not having a super computer.
+v flags the variable you are grabbing taylor series of. count determines the maximum amount of iterations.
+
+MakeGraph -- mike3's graphing program. I thought I'd post his read me:
+
+/* =============================================================================  
+** Color graphing system - mike3 - 20.11.10 04:07
+** Hi.
+** I thought I'd post the code I use to generate the color graphs from Pari/GP.
+** Here it is.
+**
+** Note: the output is in .PPM format. 
+** You'll need something else to convert that to .PNG. (I use GIMP.)
+** 
+** Also, I might warn you: it takes a LONG time to graph a complex function
+** with a significantly complicated calculation procedure, as it must be
+** evaluated at every pixel of the graph.
+** 
+** (updated 12/16/2010 -- program was not all good: 
+**   * spurious "func" parameter in MakeGraph and "safetyarg" was missing.)
+** ------------------------------------------------------------------------------------------ 
+**  
+** ============================================================================= */
+
+/* =============================== Code: ==================================================== */
+/* Complex function magnitude/phase plotter. */
+
+/* To use:
+*     1. Define function to graph as func(z).
+*     2. Load this program.
+*     3. Execute MakeGraph(width, height, x0, y0, x1, y1, filename) with the parameters given as follows:
+*        width, height = width/height of image in pixels
+*        x0, y0, x1, y1 = rectangle of complex plane to graph: x0 + y0i in upper-left corner to x1 + y1i in lower-right corner
+*        filename = name of file to save as.
+* Output is in .PPM format.
+*/
