@@ -196,12 +196,12 @@ rho_warped(z,{v=0},{count=30})={
 
 /*
 This is the correct super exponential. First the not normalized one, and the normalized one. 
-The normalization constant x_0 = 1.969637739698065306544624079350257708852542229771084623924562193889980567396859073585886113019833431
+The normalization constant x_0 = 1.954487124567351250873466288757200641918406194592746453275950974474677076765626095256043177503400722
 is calculated by x_0 = 2 + polrootsreal(Pol(rho_warped(1+z,z) +beta(z+1,1/sqrt(3+z),z) - log(1+exp((-z-1)/sqrt(3+z))),z))
 If you fiddle with the code, the first thing that tends to stray is the normalization constant, so just run that command and you'll get it back.
 */
 
-x_0 = 1.969637739698065306544624079350257708852542229771084623924562193889980567396859073585886113019833431;
+x_0 = 1.954487124567351250873466288757200641918406194592746453275950974474677076765626095256043177503400722;
 
 Sexp_NOT_NORMALIZED(z,{v=0},{count=30}) = {
 	if(v==0,
