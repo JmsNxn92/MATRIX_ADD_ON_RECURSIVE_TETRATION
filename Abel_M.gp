@@ -180,12 +180,12 @@ There are still anomalies with the rho method. Grabbing Taylor series and summin
 
 rho_warped(z,{v=0},{count=30})={
 	if(v==0,
-		if(abs(beta_warped(z)) < 1E2 && count>0, 
+		if(abs(beta_warped(z)) < 3 && count>0, 
 			count--; 
 			log((rho_warped(z+1,v,count) +beta(z+1,1/sqrt(3+z)) - log(1+exp(-(z+1)/sqrt(3+z))))/beta_warped(z+1)),
 			0
 		),
-		if(abs(polcoef(beta_warped(z,v),0,v)) < 1E2 && count>0,
+		if(abs(polcoef(beta_warped(z,v),0,v)) < 3 && count>0,
 			count--;
 			log((rho_warped(z+1,v,count) +beta(z+1,1/sqrt(3+z),v) - log(1+exp(-(z+1)/sqrt(3+z))))/beta_warped(z+1,v)),
 			0
